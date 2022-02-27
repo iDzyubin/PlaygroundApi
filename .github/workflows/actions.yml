@@ -11,8 +11,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: dotnet build --no-restore
-    with:
-      dotnet-version: 6.0.x
   test:
     name: Test application
     runs-on: ubuntu-latest
