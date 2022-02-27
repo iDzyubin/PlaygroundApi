@@ -57,4 +57,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Build docker image
-        run: ls
+        run: ls ${{ github.workspace }}
