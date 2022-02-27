@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - run: |
-          cd ../../PlaygroundApi |
+          cd ..\..\PlaygroundApi |
           dotnet restore
   build:
     name: Building application
