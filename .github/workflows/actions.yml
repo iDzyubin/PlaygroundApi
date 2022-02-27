@@ -5,7 +5,9 @@ jobs:
     name: Restore packages
     runs-on: ubuntu-latest
     steps:
-      - run: dotnet restore
+      - run: |
+          cd ../../PlaygroundApi |
+          dotnet restore
   build:
     name: Building application
     runs-on: ubuntu-latest
