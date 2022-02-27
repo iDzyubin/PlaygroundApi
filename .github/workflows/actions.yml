@@ -8,7 +8,7 @@ name: build and test
 on:
   push:
   pull_request:
-    branches: [ main ]
+    branches: [ main, developer ]
     paths-ignore:
       - 'README.md'
 
@@ -24,10 +24,7 @@ jobs:
     # When the workflow runs, this is the name that is logged
     # This job will run three times, once for each "os" defined
     name: build-and-test-${{matrix.os}}
-    runs-on: ${{ matrix.os }}
-    strategy:
-      matrix:
-        os: [ubuntu-latest]
+    runs-on: ubuntu-latest
 
     # Each job run contains these five steps
     steps:
@@ -53,3 +50,10 @@ jobs:
       # 5) Test a project or solution.
       - name: Test
         run: dotnet test --no-restore --verbosity normal
+        
+  deploy:
+    name: create docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Build docker image
+        run: docker build -t playground .
