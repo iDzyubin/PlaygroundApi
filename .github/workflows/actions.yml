@@ -52,7 +52,7 @@ jobs:
 #        run: dotnet test --no-restore --verbosity normal
 #        
   deploy:
-    need: build-and-test
+#    need: build-and-test
     name: create docker image
     runs-on: ubuntu-latest
     steps:
