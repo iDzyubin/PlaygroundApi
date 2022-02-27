@@ -1,25 +1,24 @@
-﻿name: playground-actions
-on: [ push ]
+﻿name: dotnet package
+
+on: [push]
+
 jobs:
-  restore:
-    name: Restore packages
-    runs-on: ubuntu-latest
-    steps:
-      - run: |
-          cd ..\..\PlaygroundApi |
-          dotnet restore
   build:
-    name: Building application
+
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        dotnet-version: ['6.0.x' ]
+
     steps:
-      - run: dotnet build --no-restore
-  test:
-    name: Test application
-    runs-on: ubuntu-latest
-    steps:
-      - run: dotnet test --no-build --verbosity normal
-  deploy:
-    name: Build docker file
-    runs-on: ubuntu-latest
-    steps:
-      - run: echo "Build docker file processed successfully"
+      - uses: actions/checkout@v2
+      - name: Setup .NET Core SDK ${{ matrix.dotnet-version }}
+        uses: actions/setup-dotnet@v1.7.2
+        with:
+          dotnet-version: ${{ matrix.dotnet-version }}
+      - name: Install dependencies
+        run: dotnet restore
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+      - name: Test
+        run: dotnet test --no-restore --verbosity normal
